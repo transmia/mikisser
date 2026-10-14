@@ -12,12 +12,15 @@ int mikisser_main(void) {
     lcd_clear();
     lcd_set_contrast(200);
 
-    display_set_symbol(DISP_SYM_SHIFT, true);
-    display_set_symbol(DISP_SYM_ALPHA, true);
+    int i = 0;
 
     while (clock_wait()) {
         lcd_set_pixel(50, 50, true);
+        display_clear_symbols();
+        display_set_symbol(1 << i, true);
+        i++; if (i >= 20) i = 0;
         lcd_refresh();
+        clock_sleep_us(100000);
     }
     
     lcd_shutdown();

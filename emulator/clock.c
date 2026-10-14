@@ -75,6 +75,29 @@ void clock_shutdown(void) {
     tick_interval = 0;
 }
 
+bool clock_set_frequency(uint32_t frequency_hz) {
+    if (frequency_hz == 0) {
+        return false;
+    }
+
+    hz = frequency_hz;
+    tick_interval = 1000000000ULL / (uint64_t)frequency_hz;
+    next_tick = clock_now_ns() + tick_interval;
+    return true;
+}
+
+uint32_t clock_get_frequency(void) {
+    return hz;
+}
+
+uint64_t clock_get_time_us(void) {
+    return clock_now_ns() / 1000ULL;
+}
+
+void clock_sleep_us(uint64_t duration_us) {
+    clock_sleep_ns(duration_us * 1000ULL);
+}
+
 bool clock_wait(void) {
     if (WindowShouldClose())
         running = false;

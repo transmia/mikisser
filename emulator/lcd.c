@@ -168,15 +168,15 @@ void display_clear_symbols(void) {
 
 void display_set_symbol(TopSymbol symbol, bool enabled) {
     if (enabled) {
-        symbol_flags |= (1 << symbol);
+        symbol_flags |= symbol;
     } else {
-        symbol_flags &= ~(1 << symbol);
+        symbol_flags &= ~symbol;
     }
     dirty = true;
 }
 
 bool display_get_symbol(TopSymbol symbol) {
-    return (symbol_flags & (1 << symbol)) != 0;
+    return (symbol_flags & symbol) != 0;
 }
 
 SymbolFlags display_get_symbols(void) {
